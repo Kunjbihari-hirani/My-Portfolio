@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+/* Lime Sprout (#E4FD97) accent and Fresh Canopy (#2D3E2C) tint, on a green-black base. */
+@theme {
+  --color-ink: #080b07;
+  --color-ink-2: #0f130d;
+  --color-ink-3: #151b13;
+  --color-line: #222b1f;
+  --color-line-2: #2f3a2b;
+  --color-fog: #8c9886;
+  --color-paper: #eef3e6;
+  --color-lime: #e4fd97;
+  --color-canopy: #2d3e2c;
+  --color-c-blue: #9cc9ff;
+  --color-c-mint: #7fd8b6;
+  --color-c-violet: #c6b5ff;
+  --color-c-amber: #ffc97a;
+  --color-on-lime: #1f2b1e;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: var(--font-instrument), Georgia, serif;
+}
+
+:root {
+  --grid-line: rgb(228 253 151 / 0.035);
+  --dot: rgb(228 253 151 / 0.08);
+  --mock-shadow: 0 24px 48px -16px rgb(0 0 0 / 0.65);
+  --card-shadow: none;
+  color-scheme: dark;
+}
+
+/* Light theme: same tokens re-pointed. Text tones meet WCAG AA on the paper background. */
+:root[data-theme="light"] {
+  --color-ink: #f6f7f1;
+  --color-ink-2: #ffffff;
+  --color-ink-3: #eef1e6;
+  --color-line: #e0e5d6;
+  --color-line-2: #c8d0bb;
+  --color-fog: #586353;
+  --color-paper: #151a12;
+  --color-lime: #4a7a0c;
+  --color-canopy: #e2f0c4;
+  --color-c-blue: #245f8f;
+  --color-c-mint: #1d7556;
+  --color-c-violet: #5b45a8;
+  --color-c-amber: #9a5b14;
+  --color-on-lime: #ffffff;
+  --grid-line: rgb(45 62 44 / 0.05);
+  --dot: rgb(45 62 44 / 0.12);
+  --mock-shadow: 0 18px 40px -18px rgb(40 50 30 / 0.28);
+  --card-shadow: 0 1px 2px rgb(40 50 30 / 0.05), 0 8px 24px -12px rgb(40 50 30 / 0.14);
+  color-scheme: light;
+}
+
+.mock-shadow {
+  box-shadow: var(--mock-shadow);
+}
+
+/* In light mode cards lift off the page with a soft shadow. */
+.card {
+  box-shadow: var(--card-shadow);
+}
+
+body,
+.theme-fade {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ink);
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-lime);
+  color: var(--color-canopy);
+}
+
+/* faint engineering grid behind a few sections */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.dot-bg {
+  background-image: radial-gradient(var(--dot) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.noise::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  z-index: 60;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.caret {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes dash {
+  to { stroke-dashoffset: -20; }
+}
+.flow-line {
+  stroke-dasharray: 4 6;
+  animation: dash 0.8s linear infinite;
+}
+
+@keyframes ecg {
+  to { stroke-dashoffset: -600; }
+}
+.ecg-line {
+  stroke-dasharray: 300 300;
+  animation: ecg 2.6s linear infinite;
+}
+
+@keyframes pulse-dot {
+  50% { opacity: 0.35; }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+@keyframes progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.progress-bar {
+  transform-origin: left;
+  animation: progress linear forwards;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.anim-in {
+  animation: fade-up 0.4s ease both;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+
+/* Reduced motion: keep the small ambient loops, slow the tech strip right down
+   (it also pauses on hover) and drop smooth scrolling. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation-duration: 120s;
+  }
+  html { scroll-behavior: auto; }
+}
