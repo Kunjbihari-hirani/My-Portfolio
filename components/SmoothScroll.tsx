@@ -19,11 +19,42 @@ export function SmoothScroll() {
       }
     };
 
+    const handleAnchorClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !lenis
+      ) {
+        return;
+      }
+
+      const anchor = event
+        .composedPath()
+        .find((target): target is HTMLAnchorElement => target instanceof HTMLAnchorElement);
+      const href = anchor?.getAttribute("href");
+      if (!href?.startsWith("#")) return;
+
+      const target = document.getElementById(href.slice(1));
+      if (!target) return;
+
+      event.preventDefault();
+      if (window.location.hash !== href) {
+        window.history.pushState(null, "", href);
+      }
+      lenis.scrollTo(target);
+    };
+
     syncMotionPreference();
     motionPreference.addEventListener("change", syncMotionPreference);
+    document.addEventListener("click", handleAnchorClick, true);
 
     return () => {
       motionPreference.removeEventListener("change", syncMotionPreference);
+      document.removeEventListener("click", handleAnchorClick, true);
       lenis?.destroy();
     };
   }, []);
