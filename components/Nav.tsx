@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { profile } from "@/data/content";
@@ -91,13 +91,37 @@ export default function Nav() {
               const on = active === l.href.slice(1);
               return (
                 <li key={l.href}>
-                  <a
+                  <motion.a
                     href={l.href}
-                    className={`flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition ${on ? "bg-ink-3 text-paper" : "text-fog hover:text-paper"}`}
+                    whileTap={{ scale: 0.98 }}
+                    aria-current={on ? "location" : undefined}
+                    className={`group relative isolate flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm transition-[color,transform] duration-200 ease-out hover:-translate-y-px hover:text-paper focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none ${
+                      on ? "text-lime" : "text-fog"
+                    }`}
                   >
-                    {on && <span className="size-1 rounded-full bg-lime" />}
-                    {l.label}
-                  </a>
+                    {on && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 z-0 rounded-full bg-canopy shadow-sm shadow-lime/10 ring-1 ring-inset ring-lime/25"
+                        transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                      />
+                    )}
+                    {!on && (
+                      <span
+                        aria-hidden="true"
+                        className="absolute inset-0 z-0 rounded-full bg-ink-3 opacity-0 transition-opacity duration-200 ease-out group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                      />
+                    )}
+                    <span
+                      aria-hidden="true"
+                      className={`relative z-10 size-1.5 shrink-0 rounded-full bg-lime transition-[opacity,transform] duration-200 ease-out motion-reduce:transition-none ${
+                        on
+                          ? "scale-100 opacity-100"
+                          : "scale-50 opacity-0 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+                      }`}
+                    />
+                    <span className="relative z-10">{l.label}</span>
+                  </motion.a>
                 </li>
               );
             })}
@@ -130,12 +154,17 @@ export default function Nav() {
           </div>
         </nav>
 
-        {menu && (
-          <div
-            ref={menuPanelRef}
-            id="mobile-navigation"
-            className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl border border-line bg-ink-2/95 p-2 shadow-2xl ring-1 ring-white/5 backdrop-blur-xl lg:hidden"
-          >
+        <AnimatePresence>
+          {menu && (
+            <motion.div
+              ref={menuPanelRef}
+              id="mobile-navigation"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -6, scale: 0.98 }}
+              transition={{ duration: 0.18, ease: "easeOut" }}
+              className="mx-auto mt-2 max-w-6xl overflow-hidden rounded-3xl border border-line bg-ink-2/95 p-2 shadow-2xl ring-1 ring-white/5 backdrop-blur-xl lg:hidden"
+            >
             <div className="flex items-center justify-between px-3 pb-2 pt-1">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-fog">
                 Navigate
@@ -149,9 +178,10 @@ export default function Nav() {
                     key={l.href}
                     href={l.href}
                     onClick={() => setMenu(false)}
-                    className={`group flex items-center gap-3 rounded-2xl px-3 py-3 transition ${
+                    aria-current={on ? "location" : undefined}
+                    className={`group flex items-center gap-3 rounded-2xl px-3 py-3 transition-[background-color,color,transform] duration-200 ease-out hover:translate-x-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lime motion-reduce:transform-none motion-reduce:transition-none ${
                       on
-                        ? "bg-ink-3 text-paper"
+                        ? "bg-canopy text-lime shadow-sm shadow-lime/10 ring-1 ring-inset ring-lime/20"
                         : "text-fog hover:bg-ink-3/70 hover:text-paper"
                     }`}
                   >
@@ -169,18 +199,19 @@ export default function Nav() {
                   </a>
                 );
               })}
-            </div>
-            {profile.resume && (
-              <a
-                href={profile.resume}
-                download="kunjbihari-hirani-resume.pdf"
-                className="mt-1 block rounded-2xl px-3 py-3 text-sm text-lime transition hover:bg-ink-3"
-              >
-                Download resume ↓
-              </a>
-            )}
-          </div>
-        )}
+              </div>
+              {profile.resume && (
+                <a
+                  href={profile.resume}
+                  download="kunjbihari-hirani-resume.pdf"
+                  className="mt-1 block rounded-2xl px-3 py-3 text-sm text-lime transition hover:bg-ink-3"
+                >
+                  Download resume ↓
+                </a>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );

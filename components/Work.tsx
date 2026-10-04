@@ -17,6 +17,11 @@ function ProjectCard({ p, wide = false }: { p: Project; wide?: boolean }) {
     const card = cardRef.current;
     if (!card) return;
 
+    if (typeof IntersectionObserver === "undefined") {
+      setActive(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => setActive(entry.isIntersecting),
       { rootMargin: "120px 0px" },

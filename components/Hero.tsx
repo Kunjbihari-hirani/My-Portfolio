@@ -159,13 +159,13 @@ export default function Hero() {
             <a href="#work" className="flex items-center gap-2 rounded-full bg-lime px-5 py-2.5 text-sm font-medium text-on-lime transition hover:brightness-95">
               See the work <ArrowDownRight className="size-4" />
             </a>
-            <button type="button" onClick={openQuickView} className="flex items-center gap-2 rounded-full border border-line-2 px-5 py-2.5 text-sm text-paper transition hover:border-lime">
+            <button type="button" onClick={openQuickView} className="flex items-center gap-2 rounded-full border border-line bg-ink-2/70 px-5 py-2.5 text-sm text-paper transition hover:border-lime hover:bg-ink-2">
               <Zap className="size-4 text-lime" /> 10-second summary
             </button>
-            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid size-10 place-items-center rounded-full border border-line-2 text-paper transition hover:border-lime">
+            <a href={profile.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="grid size-10 place-items-center rounded-full border border-line bg-ink-2/70 text-paper transition hover:border-lime hover:bg-ink-2">
               <GithubIcon className="size-4" />
             </a>
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid size-10 place-items-center rounded-full border border-line-2 text-paper transition hover:border-lime">
+            <a href={profile.linkedin} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="grid size-10 place-items-center rounded-full border border-line bg-ink-2/70 text-paper transition hover:border-lime hover:bg-ink-2">
               <LinkedinIcon className="size-4" />
             </a>
           </motion.div>
