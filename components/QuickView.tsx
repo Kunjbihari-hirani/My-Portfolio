@@ -20,6 +20,7 @@ import {
   PinIcon,
   RoleIcon,
 } from "./Icons";
+import { SMOOTH_SCROLL_LOCK_EVENT } from "./SmoothScroll";
 import { LinkedinIcon, TechTags } from "./ui";
 
 export const projectIcon: Record<ProjectId, typeof CapIcon> = {
@@ -60,13 +61,22 @@ export default function QuickView() {
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    window.dispatchEvent(
+      new CustomEvent<boolean>(SMOOTH_SCROLL_LOCK_EVENT, { detail: true }),
+    );
     closeRef.current?.focus();
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && close();
     window.addEventListener("keydown", onKey);
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      window.dispatchEvent(
+        new CustomEvent<boolean>(SMOOTH_SCROLL_LOCK_EVENT, { detail: false }),
+      );
       window.removeEventListener("keydown", onKey);
     };
   }, [open, close]);
@@ -105,7 +115,7 @@ export default function QuickView() {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[80] flex items-end justify-center bg-black/55 p-3 backdrop-blur-sm sm:items-center sm:p-6"
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/55 p-3 backdrop-blur-sm sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -120,9 +130,10 @@ export default function QuickView() {
             exit={{ y: 20, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             onClick={(e) => e.stopPropagation()}
-            className="max-h-[92vh] w-full max-w-3xl overflow-y-auto rounded-3xl border border-line bg-ink-2 shadow-2xl"
+            data-lenis-prevent
+            className="max-h-[calc(100dvh-1.5rem)] w-full max-w-3xl overscroll-contain overflow-y-auto rounded-3xl border border-line bg-ink-2 shadow-2xl sm:max-h-[92vh]"
           >
-            <div className="flex items-start justify-between gap-4 border-b border-line p-5 sm:p-6">
+            <div className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-line bg-ink-2 p-5 sm:p-6">
               <div className="flex items-center gap-3">
                 <RoleIcon className="size-12" />
                 <div>

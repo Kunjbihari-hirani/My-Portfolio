@@ -34,9 +34,9 @@ function Mark({ children, n, color }: { children: React.ReactNode; n: number; co
 function RecruiterCard() {
   const [copied, setCopied] = useState(false);
   const path = [
-    { year: "2023", role: jobs[1].role, where: jobs[1].company, Icon: AppIcon, on: false, span: "2023 — 2024" },
-    { year: "2024", role: education.degree, where: "GTU", Icon: CapIcon, on: false, span: `Graduated ${education.year}` },
     { year: "2024", role: jobs[0].role, where: jobs[0].company, Icon: RoleIcon, on: true, span: "2024 — Present" },
+    { year: "2024", role: education.degree, where: "GTU", Icon: CapIcon, on: false, span: `Graduated ${education.year}` },
+    { year: "2023", role: jobs[1].role, where: jobs[1].company, Icon: AppIcon, on: false, span: "2023 — 2024" },
   ];
   const copy = async () => {
     try {

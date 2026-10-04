@@ -214,7 +214,7 @@ export const projects: Project[] = [
 export const jobs = [
   {
     company: "Devstree IT Services",
-    role: "Frontend Developer",
+    role: "Software Engineer",
     period: "Jul 2024 — Present",
     current: true,
     line: "React and Next.js products with Python API integrations across SaaS, EdTech, healthcare, AI and 3D.",
@@ -271,7 +271,7 @@ export const timeline = {
 export const recruiter = {
   years: "3+",
   current: {
-    role: "Frontend Developer",
+    role: jobs[0].role,
     company: "Devstree IT Services",
     since: "Jul 2024",
   },

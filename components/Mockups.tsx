@@ -5,12 +5,13 @@ import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } f
 import type { ProjectId } from "@/data/content";
 import { Browser } from "./ui";
 
-function useTick(ms: number, size: number) {
+function useTick(ms: number, size: number, enabled: boolean) {
   const [n, setN] = useState(0);
   useEffect(() => {
+    if (!enabled) return;
     const id = setInterval(() => setN((v) => (v + 1) % size), ms);
     return () => clearInterval(id);
-  }, [ms, size]);
+  }, [enabled, ms, size]);
   return n;
 }
 
@@ -29,11 +30,10 @@ const questions = [
   { q: "Causes of the French Revolution", tag: "Long", ai: true },
 ];
 
-function GoGradeMock() {
-  const auto = useTick(2600, tenants.length);
+function GoGradeMock({ active }: { active: boolean }) {
+  const auto = useTick(2600, tenants.length, active);
   const [picked, setPicked] = useState<number | null>(null);
   const t = tenants[picked ?? auto];
-  const marking = useTick(140, 100);
 
   return (
     <Browser url={`${t.host}.gograde.in/admin`}>
@@ -90,10 +90,10 @@ function GoGradeMock() {
           <div className="rounded-lg border border-dashed border-line-2 p-2.5">
             <div className="mb-1.5 flex justify-between font-mono text-[10px] text-fog">
               <span>pub/sub · marking-service</span>
-              <span className="text-lime">{marking}%</span>
+              <span className="text-lime">processing</span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-line">
-              <div className="h-full rounded-full bg-lime transition-[width] duration-150" style={{ width: `${marking}%` }} />
+              <div className="mock-progress-bar h-full w-full rounded-full bg-lime" />
             </div>
             <div className="mt-1.5 font-mono text-[10px] text-fog">
               en.json · <span className="text-paper">&quot;Add %org%:lower&quot;</span> → <span className="text-lime">Add {t.one.toLowerCase()}</span>
@@ -275,10 +275,10 @@ function AsphaltaMock() {
 const themes = ["#e4fd97", "#9cc9ff", "#ffc97a", "#f5a3c7"];
 const greetings = ["Hi! Ask me anything about Acme.", "Hey 👋 Need help with an order?", "Welcome! How can I help today?"];
 
-function ChatbotMock() {
+function ChatbotMock({ active }: { active: boolean }) {
   const [theme, setTheme] = useState(themes[0]);
   const [g, setG] = useState(0);
-  const typing = useTick(500, 4);
+  const typing = useTick(500, 4, active);
 
   return (
     <Browser url="acme.com">
@@ -370,9 +370,9 @@ const slots = [
 ];
 const ECG = "M0 32 H40 L48 28 L54 32 H70 L76 40 L84 6 L92 52 L98 32 H130 L138 26 L146 32 H170 L176 40 L184 6 L192 52 L198 32 H230 L238 27 L246 32 H260 L266 40 L274 6 L282 52 L288 32 H300";
 
-function CoHealthMock() {
-  const step = useTick(650, 13);
-  const order = useTick(1200, 3);
+function CoHealthMock({ active }: { active: boolean }) {
+  const step = useTick(650, 13, active);
+  const order = useTick(1200, 3, active);
   return (
     <Browser url="admin.co-health / patients / household">
       <div className="grid gap-3 p-3 text-[11px] sm:p-4 md:grid-cols-[1.2fr_1fr]">
@@ -452,15 +452,15 @@ function CoHealthMock() {
   );
 }
 
-export default function Mockup({ id }: { id: ProjectId }) {
+export default function Mockup({ id, active }: { id: ProjectId; active: boolean }) {
   switch (id) {
     case "gograde":
-      return <GoGradeMock />;
+      return <GoGradeMock active={active} />;
     case "asphalta":
       return <AsphaltaMock />;
     case "chatbot":
-      return <ChatbotMock />;
+      return <ChatbotMock active={active} />;
     case "cohealth":
-      return <CoHealthMock />;
+      return <CoHealthMock active={active} />;
   }
 }

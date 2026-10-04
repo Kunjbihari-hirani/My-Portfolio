@@ -3,19 +3,32 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+export const SMOOTH_SCROLL_LOCK_EVENT = "smooth-scroll-lock";
+
 export function SmoothScroll() {
   useEffect(() => {
     const motionPreference = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     );
     let lenis: Lenis | undefined;
+    let scrollLocked = false;
 
     const syncMotionPreference = () => {
       if (motionPreference.matches) {
         lenis?.destroy();
         lenis = undefined;
       } else if (!lenis) {
-        lenis = new Lenis({ autoRaf: true, lerp: 0.1 });
+        lenis = new Lenis({ autoRaf: true, lerp: 0.16 });
+        if (scrollLocked) lenis.stop();
+      }
+    };
+
+    const handleScrollLock = (event: Event) => {
+      scrollLocked = (event as CustomEvent<boolean>).detail;
+      if (scrollLocked) {
+        lenis?.stop();
+      } else {
+        lenis?.start();
       }
     };
 
@@ -45,15 +58,17 @@ export function SmoothScroll() {
       if (window.location.hash !== href) {
         window.history.pushState(null, "", href);
       }
-      lenis.scrollTo(target);
+      lenis.scrollTo(target, { duration: 0.8 });
     };
 
     syncMotionPreference();
     motionPreference.addEventListener("change", syncMotionPreference);
+    window.addEventListener(SMOOTH_SCROLL_LOCK_EVENT, handleScrollLock);
     document.addEventListener("click", handleAnchorClick, true);
 
     return () => {
       motionPreference.removeEventListener("change", syncMotionPreference);
+      window.removeEventListener(SMOOTH_SCROLL_LOCK_EVENT, handleScrollLock);
       document.removeEventListener("click", handleAnchorClick, true);
       lenis?.destroy();
     };

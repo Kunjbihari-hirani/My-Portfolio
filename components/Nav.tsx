@@ -110,7 +110,7 @@ export default function Nav() {
               className="flex h-9 items-center gap-1.5 rounded-full bg-lime px-3.5 text-sm font-medium text-on-lime transition hover:brightness-95"
             >
               <Zap className="size-3.5" />
-              quick view
+              Quick view
             </button>
             <button
               ref={menuButtonRef}

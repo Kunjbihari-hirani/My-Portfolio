@@ -16,9 +16,16 @@ const extraCat: Record<string, Cat> = {
   R3F: "3d",
   "Next.js API Routes": "api",
 };
-export const catFor = (tech: string): Cat | undefined => extraCat[tech] ?? tools.find((t) => t.name === tech)?.cat;
+export const catFor = (tech: string): Cat | undefined =>
+  extraCat[tech] ?? tools.find((t) => t.name === tech)?.cat;
 
-export function TechTag({ name, className = "" }: { name: string; className?: string }) {
+export function TechTag({
+  name,
+  className = "",
+}: {
+  name: string;
+  className?: string;
+}) {
   const tool = tools.find((item) => item.name === name);
   const cat = extraCat[name] ?? tool?.cat;
   if (!cat) return <Tag className={className}>{name}</Tag>;
@@ -26,7 +33,11 @@ export function TechTag({ name, className = "" }: { name: string; className?: st
   return (
     <span
       className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-0.5 font-mono text-[11px] leading-5 whitespace-nowrap ${className}`}
-      style={{ color: c, borderColor: `color-mix(in oklab, ${c} 35%, transparent)`, background: `color-mix(in oklab, ${c} 8%, transparent)` }}
+      style={{
+        color: c,
+        borderColor: `color-mix(in oklab, ${c} 35%, transparent)`,
+        background: `color-mix(in oklab, ${c} 8%, transparent)`,
+      }}
     >
       {name}
       {tool?.inProgress && (
@@ -41,7 +52,13 @@ export function TechTag({ name, className = "" }: { name: string; className?: st
   );
 }
 
-export function TechTags({ items, className = "" }: { items: string[]; className?: string }) {
+export function TechTags({
+  items,
+  className = "",
+}: {
+  items: string[];
+  className?: string;
+}) {
   return (
     <ul className={`flex flex-wrap gap-1.5 ${className}`}>
       {items.map((t) => (
@@ -53,24 +70,47 @@ export function TechTags({ items, className = "" }: { items: string[]; className
   );
 }
 
-export function Section({ id, children, className = "" }: { id: string; children: ReactNode; className?: string }) {
+export function Section({
+  id,
+  children,
+  className = "",
+}: {
+  id: string;
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <section id={id} className={`relative scroll-mt-20 px-4 py-24 sm:px-6 md:py-32 ${className}`}>
+    <section
+      id={id}
+      className={`relative scroll-mt-20 px-4 py-12 sm:px-6 sm:py-16 md:py-20 ${className}`}
+    >
       <div className="mx-auto max-w-6xl">{children}</div>
     </section>
   );
 }
 
 /* "01 —— LABEL" kicker over a headline with an italic serif accent word. */
-export function SectionHead({ index, label, title, sub }: { index: string; label: string; title: ReactNode; sub?: ReactNode }) {
+export function SectionHead({
+  index,
+  label,
+  title,
+  sub,
+}: {
+  index: string;
+  label: string;
+  title: ReactNode;
+  sub?: ReactNode;
+}) {
   return (
-    <Reveal className="mb-12 md:mb-16">
+    <Reveal className="mb-10 md:mb-12">
       <div className="mb-4 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] text-fog">
         <span className="text-lime">{index}</span>
         <span className="h-px w-8 bg-line-2" />
         {label}
       </div>
-      <h2 className="max-w-3xl text-3xl font-medium tracking-tight text-paper sm:text-4xl md:text-5xl">{title}</h2>
+      <h2 className="max-w-3xl text-3xl font-medium tracking-tight text-paper sm:text-4xl md:text-5xl">
+        {title}
+      </h2>
       {sub && <p className="mt-4 max-w-2xl text-fog">{sub}</p>}
     </Reveal>
   );
@@ -80,7 +120,15 @@ export function Accent({ children }: { children: ReactNode }) {
   return <em className="font-serif font-normal text-lime">{children}</em>;
 }
 
-export function Reveal({ children, delay = 0, className = "" }: { children: ReactNode; delay?: number; className?: string }) {
+export function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -94,27 +142,65 @@ export function Reveal({ children, delay = 0, className = "" }: { children: Reac
   );
 }
 
-export function Tag({ children, className = "" }: { children: ReactNode; className?: string }) {
+export function Tag({
+  children,
+  className = "",
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <span className={`rounded-full border border-line bg-ink-2 px-2.5 py-1 font-mono text-[11px] text-fog ${className}`}>{children}</span>
+    <span
+      className={`rounded-full border border-line bg-ink-2 px-2.5 py-1 font-mono text-[11px] text-fog ${className}`}
+    >
+      {children}
+    </span>
   );
 }
 
-export function Dot({ color, className = "", pulse = false }: { color: string; className?: string; pulse?: boolean }) {
-  return <span className={`inline-block size-1.5 shrink-0 rounded-full ${pulse ? "pulse-dot" : ""} ${className}`} style={{ background: color }} />;
+export function Dot({
+  color,
+  className = "",
+  pulse = false,
+}: {
+  color: string;
+  className?: string;
+  pulse?: boolean;
+}) {
+  return (
+    <span
+      className={`inline-block size-1.5 shrink-0 rounded-full ${pulse ? "pulse-dot" : ""} ${className}`}
+      style={{ background: color }}
+    />
+  );
 }
 
 /* Browser window chrome around a mock UI. */
-export function Browser({ url, children, className = "", style }: { url: string; children: ReactNode; className?: string; style?: CSSProperties }) {
+export function Browser({
+  url,
+  children,
+  className = "",
+  style,
+}: {
+  url: string;
+  children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
+}) {
   return (
-    <div className={`overflow-hidden rounded-xl border border-line-2 bg-ink mock-shadow ${className}`} style={style}>
+    <div
+      className={`overflow-hidden rounded-xl border border-line-2 bg-ink mock-shadow ${className}`}
+      style={style}
+    >
       <div className="flex items-center gap-3 border-b border-line bg-ink-2 px-3 py-2">
         <div className="flex gap-1.5">
           {[0, 1, 2].map((i) => (
             <span key={i} className="size-2 rounded-full bg-line-2" />
           ))}
         </div>
-        <div className="mx-auto max-w-[70%] truncate rounded-md bg-ink-3 px-3 py-0.5 font-mono text-[10px] text-fog">{url}</div>
+        <div className="mx-auto max-w-[70%] truncate rounded-md bg-ink-3 px-3 py-0.5 font-mono text-[10px] text-fog">
+          {url}
+        </div>
         <span className="w-8" />
       </div>
       {children}

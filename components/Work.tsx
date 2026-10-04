@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight, Gauge, Lock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { catColor, projects, type Project } from "@/data/content";
 import Mockup from "./Mockups";
 import { projectIcon } from "./QuickView";
@@ -9,8 +10,23 @@ import { Accent, Dot, Reveal, Section, SectionHead, TechTags } from "./ui";
 function ProjectCard({ p, wide = false }: { p: Project; wide?: boolean }) {
   const color = catColor[p.cat];
   const Icon = projectIcon[p.id];
+  const cardRef = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const card = cardRef.current;
+    if (!card) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { rootMargin: "120px 0px" },
+    );
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <article id={p.id} className="card group relative flex h-full min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-3xl border border-line bg-ink-2 transition-colors hover:border-line-2">
+    <article ref={cardRef} id={p.id} className="card group relative flex h-full min-w-0 scroll-mt-24 flex-col overflow-hidden rounded-3xl border border-line bg-ink-2 transition-colors hover:border-line-2">
       {/* category-tinted stage for the mock */}
       <div
         className="relative px-4 pt-12 sm:px-8"
@@ -19,7 +35,7 @@ function ProjectCard({ p, wide = false }: { p: Project; wide?: boolean }) {
         <span className="absolute top-4 left-5 font-mono text-xs text-fog">{p.index}</span>
         <span className="absolute top-4 right-5 font-mono text-xs text-fog">{p.period}</span>
         <div className={`mx-auto transition-transform duration-500 group-hover:-translate-y-1 ${wide ? "max-w-3xl" : ""}`}>
-          <Mockup id={p.id} />
+          <Mockup id={p.id} active={active} />
         </div>
         <div className="h-6" />
       </div>

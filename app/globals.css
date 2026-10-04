@@ -80,11 +80,29 @@ body {
     radial-gradient(circle at 82% 10%, var(--bg-glow-2), transparent 22%),
     radial-gradient(circle at 50% 50%, var(--bg-glow-3), transparent 38%),
     var(--page-bg);
-  background-attachment: fixed;
   color: var(--color-paper);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   min-height: 100vh;
+}
+
+* {
+  scrollbar-color: var(--color-lime) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: var(--color-lime);
 }
 
 button:not(:disabled) {
@@ -174,6 +192,11 @@ button:disabled {
   animation: progress linear forwards;
 }
 
+.mock-progress-bar {
+  transform-origin: left;
+  animation: progress 14s linear infinite;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -203,6 +226,10 @@ button:disabled {
 @media (prefers-reduced-motion: reduce) {
   .marquee {
     animation-duration: 120s;
+  }
+  .mock-progress-bar {
+    animation: none;
+    transform: scaleX(1);
   }
   html {
     scroll-behavior: auto;
