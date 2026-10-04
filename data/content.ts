@@ -52,7 +52,7 @@ export const snapshot = {
   ],
 };
 
-export type Tool = { name: string; cat: Cat };
+export type Tool = { name: string; cat: Cat; inProgress?: boolean };
 
 export const tools: Tool[] = [
   { name: "React.js", cat: "ui" },
@@ -70,7 +70,7 @@ export const tools: Tool[] = [
   { name: "REST APIs", cat: "api" },
   { name: "WebSockets", cat: "api" },
   { name: "Socket.IO", cat: "api" },
-  { name: "FastAPI (learning)", cat: "api" },
+  { name: "FastAPI", cat: "api", inProgress: true },
   { name: "Node.js (Asphalta project)", cat: "api" },
   { name: "BullMQ (Asphalta project)", cat: "api" },
   { name: "Microservices", cat: "api" },
@@ -87,11 +87,11 @@ export const tools: Tool[] = [
   { name: "LLM APIs", cat: "ai" },
   { name: "RAG", cat: "ai" },
   { name: "Generative AI", cat: "ai" },
-  { name: "Embeddings (learning)", cat: "ai" },
-  { name: "Vector databases (learning)", cat: "ai" },
-  { name: "Pandas (learning)", cat: "ai" },
-  { name: "NumPy (learning)", cat: "ai" },
-  { name: "OpenAI / Claude APIs (learning)", cat: "ai" },
+  { name: "Embeddings", cat: "ai", inProgress: true },
+  { name: "Vector databases", cat: "ai", inProgress: true },
+  { name: "Pandas", cat: "ai", inProgress: true },
+  { name: "NumPy", cat: "ai", inProgress: true },
+  { name: "OpenAI / Claude APIs", cat: "ai", inProgress: true },
 ];
 
 export type ProjectId = "gograde" | "asphalta" | "chatbot" | "cohealth";

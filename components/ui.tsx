@@ -19,15 +19,24 @@ const extraCat: Record<string, Cat> = {
 export const catFor = (tech: string): Cat | undefined => extraCat[tech] ?? tools.find((t) => t.name === tech)?.cat;
 
 export function TechTag({ name, className = "" }: { name: string; className?: string }) {
-  const cat = catFor(name);
+  const tool = tools.find((item) => item.name === name);
+  const cat = extraCat[name] ?? tool?.cat;
   if (!cat) return <Tag className={className}>{name}</Tag>;
   const c = catColor[cat];
   return (
     <span
-      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 font-mono text-[11px] leading-5 whitespace-nowrap ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full border px-2.5 py-0.5 font-mono text-[11px] leading-5 whitespace-nowrap ${className}`}
       style={{ color: c, borderColor: `color-mix(in oklab, ${c} 35%, transparent)`, background: `color-mix(in oklab, ${c} 8%, transparent)` }}
     >
       {name}
+      {tool?.inProgress && (
+        <span
+          className="border-l border-current/25 pl-2 text-[9px] leading-4 text-fog"
+          title="Currently in progress"
+        >
+          In progress
+        </span>
+      )}
     </span>
   );
 }

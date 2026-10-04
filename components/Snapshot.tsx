@@ -15,7 +15,7 @@ const months = Array.from({ length: 38 }, (_, i) => {
 
 const areas = [
   { title: "Frontend", icon: AppIcon, chips: ["React", "Next.js", "TS", "Zustand"] },
-  { title: "Backend", icon: ServersIcon, chips: ["Python", "REST APIs", "FastAPI (learning)", "WebSockets"] },
+  { title: "Backend", icon: ServersIcon, chips: ["Python", "REST APIs", "FastAPI", "WebSockets"] },
   { title: "Database", icon: DatabaseIcon, chips: ["PostgreSQL", "MongoDB", "SQL"] },
   { title: "3D", icon: CubeIcon, chips: ["Three.js", "R3F"] },
   { title: "AI", icon: AiIcon, chips: ["Gemini", "RAG", "Generative AI"] },

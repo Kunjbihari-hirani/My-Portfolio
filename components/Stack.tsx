@@ -102,7 +102,7 @@ export default function Stack() {
                           key={t.name}
                           layout
                           animate={{ opacity: on ? 1 : 0.28, scale: on ? 1 : 0.97 }}
-                          className="rounded-full border px-3 py-1 text-sm"
+                          className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm"
                           style={{
                             borderColor: on && project ? catColor[c] : "var(--color-line-2)",
                             color: on ? "var(--color-paper)" : "var(--color-fog)",
@@ -110,6 +110,11 @@ export default function Stack() {
                           }}
                         >
                           {t.name}
+                          {t.inProgress && (
+                            <span className="border-l border-current/25 pl-2 text-[10px] text-fog">
+                              In progress
+                            </span>
+                          )}
                         </motion.span>
                       );
                     })}

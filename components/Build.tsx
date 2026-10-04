@@ -58,7 +58,7 @@ const layers: Layer[] = [
     subtitle: "Python · REST APIs · WebSockets",
     details: "Build React interfaces around Python REST APIs, connect real-time product flows, and integrate AI capabilities. Currently deepening backend skills with FastAPI.",
     seen: "GoGrade AI · AI Chatbot",
-    stack: ["Python", "REST APIs", "WebSockets", "FastAPI (learning)"],
+    stack: ["Python", "REST APIs", "WebSockets", "FastAPI"],
     Icon: ServersIcon,
     tone: catColor.api,
   },

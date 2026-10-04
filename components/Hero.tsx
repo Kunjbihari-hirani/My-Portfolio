@@ -104,6 +104,11 @@ function ToolStrip() {
           <span key={i} className="flex items-center gap-2 rounded-xl border border-line bg-ink-2 px-3.5 py-2 text-sm whitespace-nowrap text-paper/85">
             <Dot color={catColor[t.cat]} />
             {t.name}
+            {t.inProgress && (
+              <span className="rounded-full border border-line-2 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wide text-fog">
+                In progress
+              </span>
+            )}
           </span>
         ))}
       </div>

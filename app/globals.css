@@ -25,7 +25,8 @@
   --grid-line: rgb(255 74 54 / 0.05);
   --dot: rgb(255 74 54 / 0.12);
   --mock-shadow: 0 18px 40px -18px rgb(20 20 20 / 0.18);
-  --card-shadow: 0 1px 2px rgb(20 20 20 / 0.04), 0 8px 24px -12px rgb(20 20 20 / 0.12);
+  --card-shadow:
+    0 1px 2px rgb(20 20 20 / 0.04), 0 8px 24px -12px rgb(20 20 20 / 0.12);
   --page-bg: linear-gradient(135deg, #dfeaf8 0%, #f5f3ef 38%, #f2e5dc 100%);
   --bg-glow-1: rgba(117, 159, 255, 0.28);
   --bg-glow-2: rgba(247, 190, 152, 0.36);
@@ -64,7 +65,9 @@
 
 body,
 .theme-fade {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 html {
@@ -121,14 +124,18 @@ button:disabled {
 }
 
 @keyframes blink {
-  50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
 .caret {
   animation: blink 1s steps(1) infinite;
 }
 
 @keyframes dash {
-  to { stroke-dashoffset: -20; }
+  to {
+    stroke-dashoffset: -20;
+  }
 }
 .flow-line {
   stroke-dasharray: 4 6;
@@ -136,7 +143,9 @@ button:disabled {
 }
 
 @keyframes ecg {
-  to { stroke-dashoffset: -600; }
+  to {
+    stroke-dashoffset: -600;
+  }
 }
 .ecg-line {
   stroke-dasharray: 300 300;
@@ -144,15 +153,21 @@ button:disabled {
 }
 
 @keyframes pulse-dot {
-  50% { opacity: 0.35; }
+  50% {
+    opacity: 0.35;
+  }
 }
 .pulse-dot {
   animation: pulse-dot 1.6s ease-in-out infinite;
 }
 
 @keyframes progress {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 .progress-bar {
   transform-origin: left;
@@ -160,8 +175,14 @@ button:disabled {
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: none; }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 .anim-in {
   animation: fade-up 0.4s ease both;
@@ -169,10 +190,12 @@ button:disabled {
 }
 
 @keyframes marquee {
-  to { transform: translateX(-50%); }
+  to {
+    transform: translateX(-50%);
+  }
 }
 .marquee {
-  animation: marquee 40s linear infinite;
+  animation: marquee 100s linear infinite;
 }
 
 /* Reduced motion: keep the small ambient loops, slow the tech strip right down
@@ -181,5 +204,7 @@ button:disabled {
   .marquee {
     animation-duration: 120s;
   }
-  html { scroll-behavior: auto; }
+  html {
+    scroll-behavior: auto;
+  }
 }
