@@ -113,14 +113,14 @@ function ToolStrip() {
 
 export default function Hero() {
   return (
-    <section id="top" className="grid-bg relative overflow-hidden px-4 pt-32 pb-16 sm:px-6 md:pt-36">
+    <section id="top" className="relative overflow-hidden px-4 pt-32 pb-16 sm:px-6 md:pt-36">
       <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.35fr_1fr]">
         <div>
           <motion.div {...rise(0)} className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-xs text-fog">
             <span className="flex items-center gap-2 text-lime">
-              <Dot color="var(--color-lime)" pulse /> Full Stack Developer
+              <Dot color="var(--color-lime)" pulse /> Full Stack AI Engineer
             </span>
-            <span>React · Next.js · Node.js · PostgreSQL</span>
+            <span>React · Next.js · Python · AI / RAG</span>
           </motion.div>
 
           <motion.h1 {...rise(0.05)} className="text-6xl leading-[0.95] font-medium tracking-tight text-paper sm:text-7xl md:text-[5.5rem]">
@@ -130,8 +130,8 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p {...rise(0.15)} className="mt-7 max-w-2xl text-xl leading-relaxed text-fog sm:text-2xl">
-            I build <Mark n={1} color={proofColors[0]}>multi-tenant SaaS</Mark>, <Mark n={2} color={proofColors[1]}>3D studios</Mark> and{" "}
-            <Mark n={3} color={proofColors[2]}>RAG products</Mark>, from the interface to the database.
+            I build with <Mark n={1} color={proofColors[0]}>React and Next.js</Mark>, integrate <Mark n={2} color={proofColors[1]}>Python APIs</Mark>, and ship{" "}
+            <Mark n={3} color={proofColors[2]}>AI and RAG features</Mark> from interface to production.
           </motion.p>
 
           <motion.ul {...rise(0.22)} className="mt-6 flex flex-wrap gap-2">

@@ -1,20 +1,19 @@
-// Single source of truth for the portfolio. Mirrors Kunjbihari_Hirani_Resume_FullStack_3years.tex.
+// Single source of truth for the portfolio, aligned with the October 2026 resume.
 
 export const profile = {
   name: "Kunjbihari Hirani",
   first: "Kunjbihari",
   last: "Hirani",
-  role: "Full Stack Developer",
-  line: "Interfaces, APIs and 3D, shipped end to end.",
+  role: "Full Stack AI Engineer",
+  line: "React products, Python APIs, and AI features built end to end.",
   location: "Ahmedabad, India",
   email: "kunjbiharihirani@gmail.com",
   phone: "+91-9409378990",
-  linkedin: "https://www.linkedin.com/in/kunjbihari-hirani-93a6b0303/",
+  linkedin: "https://www.linkedin.com/in/kunjbihari-hirani",
   github: "https://github.com/Kunjbihari-hirani",
   domain: "kunjbihari-hirani.vercel.app",
-  // Drop the PDF into /public and set this to "/<file>.pdf" to show every Resume button.
-  resume: "",
-  flow: ["React", "Next.js", "Node.js", "PostgreSQL"],
+  resume: "/kunjbihari-hirani-resume.pdf",
+  flow: ["React", "Next.js", "Python", "LLM APIs"],
 };
 
 /* Category colors used by dots, chips and bars across the site. */
@@ -67,11 +66,13 @@ export const tools: Tool[] = [
   { name: "TanStack Query", cat: "ui" },
   { name: "GSAP", cat: "ui" },
   { name: "ScrollTrigger", cat: "ui" },
-  { name: "Node.js", cat: "api" },
+  { name: "Python", cat: "api" },
   { name: "REST APIs", cat: "api" },
   { name: "WebSockets", cat: "api" },
   { name: "Socket.IO", cat: "api" },
-  { name: "BullMQ", cat: "api" },
+  { name: "FastAPI (learning)", cat: "api" },
+  { name: "Node.js (Asphalta project)", cat: "api" },
+  { name: "BullMQ (Asphalta project)", cat: "api" },
   { name: "Microservices", cat: "api" },
   { name: "Pub/Sub", cat: "api" },
   { name: "Stripe", cat: "api" },
@@ -83,8 +84,14 @@ export const tools: Tool[] = [
   { name: "Three.js", cat: "3d" },
   { name: "React Three Fiber", cat: "3d" },
   { name: "Gemini", cat: "ai" },
+  { name: "LLM APIs", cat: "ai" },
   { name: "RAG", cat: "ai" },
   { name: "Generative AI", cat: "ai" },
+  { name: "Embeddings (learning)", cat: "ai" },
+  { name: "Vector databases (learning)", cat: "ai" },
+  { name: "Pandas (learning)", cat: "ai" },
+  { name: "NumPy (learning)", cat: "ai" },
+  { name: "OpenAI / Claude APIs (learning)", cat: "ai" },
 ];
 
 export type ProjectId = "gograde" | "asphalta" | "chatbot" | "cohealth";
@@ -115,8 +122,23 @@ export const projects: Project[] = [
     host: "xyz-school.gograde.in",
     live: "https://gograde.ai/",
     period: "Apr 2025 — Present",
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Pub/Sub", "Microservices"],
-    uses: ["Next.js", "React.js", "TypeScript", "GSAP", "ScrollTrigger", "Node.js", "REST APIs", "PostgreSQL", "SQL", "Multi-Tenancy", "RBAC", "Microservices", "Pub/Sub", "Generative AI"],
+    stack: ["Next.js", "TypeScript", "Python APIs", "PostgreSQL", "Pub/Sub"],
+    uses: [
+      "Next.js",
+      "React.js",
+      "TypeScript",
+      "GSAP",
+      "ScrollTrigger",
+      "Python",
+      "REST APIs",
+      "PostgreSQL",
+      "SQL",
+      "Multi-Tenancy",
+      "RBAC",
+      "Microservices",
+      "Pub/Sub",
+      "Generative AI",
+    ],
     hard: "Labels, roles and data change per tenant without forking the UI.",
   },
   {
@@ -129,8 +151,28 @@ export const projects: Project[] = [
     host: "asphalta.3dxai.io/garage",
     live: "https://asphalta.3dxai.io/garage",
     period: "Dec 2025 — Mar 2026",
-    stack: ["React Three Fiber", "Three.js", "Node.js", "BullMQ", "Gemini", "Stripe"],
-    uses: ["React.js", "React Three Fiber", "Three.js", "Zustand", "GSAP", "ScrollTrigger", "Node.js", "BullMQ", "Gemini", "Generative AI", "Stripe", "REST APIs"],
+    stack: [
+      "React Three Fiber",
+      "Three.js",
+      "Node.js",
+      "BullMQ",
+      "Gemini",
+      "Stripe",
+    ],
+    uses: [
+      "React.js",
+      "React Three Fiber",
+      "Three.js",
+      "Zustand",
+      "GSAP",
+      "ScrollTrigger",
+      "Node.js (Asphalta project)",
+      "BullMQ (Asphalta project)",
+      "Gemini",
+      "Generative AI",
+      "Stripe",
+      "REST APIs",
+    ],
     hard: "Mapping 2D pointer input onto curved 3D surfaces so decals drag and mirror right.",
   },
   {
@@ -142,8 +184,15 @@ export const projects: Project[] = [
     tagline: "One script tag. A themed, RAG-grounded assistant on any site.",
     host: "acme.com",
     period: "Sep 2025 — Nov 2025",
-    stack: ["Node.js", "MongoDB", "WebSockets", "RAG"],
-    uses: ["React.js", "TypeScript", "Node.js", "MongoDB", "WebSockets", "Socket.IO", "RAG", "Generative AI", "REST APIs"],
+    stack: ["React.js", "WebSockets", "RAG"],
+    uses: [
+      "React.js",
+      "TypeScript",
+      "WebSockets",
+      "RAG",
+      "Generative AI",
+      "REST APIs",
+    ],
     hard: "One widget that drops into any website and still looks native.",
   },
   {
@@ -152,28 +201,38 @@ export const projects: Project[] = [
     name: "Co-Health",
     kind: "Healthcare platform",
     cat: "ui",
-    tagline: "Patients, nurse scheduling, ECG and medicine orders in one place.",
+    tagline:
+      "Patients, nurse scheduling, ECG and medicine orders in one place.",
     host: "admin.co-health",
     period: "Oct 2024 — Jul 2025",
-    stack: ["React", "Node.js", "PostgreSQL", "RBAC"],
-    uses: ["React.js", "Redux Toolkit", "TanStack Query", "Ant Design", "Node.js", "REST APIs", "PostgreSQL", "SQL", "RBAC"],
-    hard: "A 13-page form and slots that hold as many bookings as nurses assigned.",
+    stack: ["React.js", "RBAC", "Data Visualization"],
+    uses: ["React.js", "Redux Toolkit", "TanStack Query", "Ant Design", "RBAC"],
+    hard: "A complex multi-level reporting and analytics with dynamic filtering and slots that hold as many bookings as nurses assigned.",
   },
 ];
 
 export const jobs = [
   {
     company: "Devstree IT Services",
-    role: "Full Stack Developer",
+    role: "Frontend Developer",
     period: "Jul 2024 — Present",
     current: true,
-    line: "Production SaaS, EdTech, healthcare, AI and 3D products, end to end.",
+    line: "React and Next.js products with Python API integrations across SaaS, EdTech, healthcare, AI and 3D.",
     pillars: [
       { title: "Frontend", sub: "React · Next.js · R3F", cat: "ui" as Cat },
-      { title: "Backend", sub: "Node.js · REST · BullMQ", cat: "api" as Cat },
+      { title: "Backend", sub: "Python · REST APIs", cat: "api" as Cat },
       { title: "Data", sub: "PostgreSQL · MongoDB", cat: "data" as Cat },
     ],
-    chips: ["Multi-tenant data models", "RBAC", "Microservices · Pub/Sub", "Stripe", "Gemini · RAG", "Socket.IO real-time", "GSAP scroll animations", "Google Maps"],
+    chips: [
+      "Python API integration",
+      "AI features · Gemini · RAG",
+      "Multi-tenant data models",
+      "RBAC",
+      "Microservices · Pub/Sub",
+      "Socket.IO real-time",
+      "GSAP scroll animations",
+      "Google Maps",
+    ],
   },
   {
     company: "The Special Character",
@@ -182,7 +241,12 @@ export const jobs = [
     current: false,
     line: "Faster, cleaner websites.",
     pillars: [],
-    chips: ["Performance optimization", "GSAP landing page motion", "Debugging", "Code reviews"],
+    chips: [
+      "Performance optimization",
+      "GSAP landing page motion",
+      "Debugging",
+      "Code reviews",
+    ],
   },
 ];
 
@@ -195,14 +259,36 @@ export const timeline = {
     { label: "GoGrade AI", from: [2025, 4], to: [2026, 10], cat: "data" },
     { label: "AI Chatbot", from: [2025, 9], to: [2025, 11], cat: "ai" },
     { label: "Asphalta AI", from: [2025, 12], to: [2026, 3], cat: "3d" },
-  ] as { label: string; from: [number, number]; to: [number, number]; cat: Cat }[],
+  ] as {
+    label: string;
+    from: [number, number];
+    to: [number, number];
+    cat: Cat;
+  }[],
 };
 
 /* What a recruiter needs in ten seconds. Also copied as plain text by the Quick view. */
 export const recruiter = {
   years: "3+",
-  current: { role: "Full Stack Developer", company: "Devstree IT Services", since: "Jul 2024" },
-  core: ["React.js", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "MongoDB", "Socket.IO", "BullMQ", "Three.js", "GSAP", "RAG"],
+  current: {
+    role: "Frontend Developer",
+    company: "Devstree IT Services",
+    since: "Jul 2024",
+  },
+  core: [
+    "React.js",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "REST APIs",
+    "PostgreSQL",
+    "LLM APIs",
+    "Gemini",
+    "RAG",
+    "WebSockets",
+    "Three.js",
+    "GSAP",
+  ],
   proof: [
     { n: "1", text: "Multi-tenant SaaS", sub: "PostgreSQL per tenant" },
     { n: "2", text: "3D car studio", sub: "React Three Fiber" },

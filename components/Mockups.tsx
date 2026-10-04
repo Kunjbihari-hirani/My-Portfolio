@@ -282,8 +282,8 @@ function ChatbotMock() {
 
   return (
     <Browser url="acme.com">
-      <div className="grid text-[11px] sm:min-h-[300px] sm:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
-        <div className="flex flex-col gap-3 border-b border-line bg-ink-2 p-3 sm:border-r sm:border-b-0">
+      <div className="grid text-[11px] lg:min-h-[300px] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.25fr)]">
+        <div className="flex flex-col gap-3 border-b border-line bg-ink-2 p-3 lg:border-r lg:border-b-0">
           <span className="font-mono text-[10px] text-fog">widget.settings</span>
           <div>
             <div className="mb-1.5 text-fog">Primary color</div>

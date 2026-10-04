@@ -15,7 +15,7 @@ const months = Array.from({ length: 38 }, (_, i) => {
 
 const areas = [
   { title: "Frontend", icon: AppIcon, chips: ["React", "Next.js", "TS", "Zustand"] },
-  { title: "Backend", icon: ServersIcon, chips: ["Node.js", "REST", "BullMQ", "Socket.IO"] },
+  { title: "Backend", icon: ServersIcon, chips: ["Python", "REST APIs", "FastAPI (learning)", "WebSockets"] },
   { title: "Database", icon: DatabaseIcon, chips: ["PostgreSQL", "MongoDB", "SQL"] },
   { title: "3D", icon: CubeIcon, chips: ["Three.js", "R3F"] },
   { title: "AI", icon: AiIcon, chips: ["Gemini", "RAG", "Generative AI"] },
@@ -78,7 +78,7 @@ export default function Snapshot() {
               </div>
               <span className="font-mono text-xs text-fog">SaaS · AI · 3D</span>
             </div>
-            <div className="mt-6 grid grid-cols-2 gap-2">
+            <div className="mt-6 grid grid-cols-1 gap-2 min-[480px]:grid-cols-2">
               {projects.map((p) => {
                 const Icon = projectIcon[p.id];
                 return (
@@ -148,7 +148,7 @@ export default function Snapshot() {
         </Reveal>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-5">
+      <div className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
         {areas.map((a, i) => {
           const Icon = a.icon;
           return (

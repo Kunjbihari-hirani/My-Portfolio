@@ -6,26 +6,32 @@ import { Accent, Reveal, Section, SectionHead } from "./ui";
 
 function Panel({ title, right, children, className = "" }: { title: string; right?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <div className={`card flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-ink-2 ${className}`}>
-      <div className="flex items-center justify-between border-b border-line px-4 py-2.5 font-mono text-xs text-fog">
+    <div
+      className={`card flex h-full flex-col overflow-hidden rounded-2xl border border-line ${className}`}
+      style={{ background: "color-mix(in oklab, var(--color-lime) 9%, var(--color-ink))" }}
+    >
+      <div
+        className="flex items-center justify-between border-b border-line px-4 py-2.5 font-mono text-xs text-fog"
+        style={{ background: "color-mix(in oklab, var(--color-lime) 6%, var(--color-ink-2))" }}
+      >
         <span>{title}</span>
         {right}
       </div>
-      <div className="flex-1">{children}</div>
+      <div className="flex-1" style={{ background: "color-mix(in oklab, var(--color-lime) 7%, var(--color-ink))" }}>{children}</div>
     </div>
   );
 }
 
 /* ---------------- terminal ---------------- */
 const script: { t: string; c: string }[] = [
+  { t: "$ python -m pytest", c: "text-paper" },
+  { t: "✓ Python API integration tests passed", c: "text-lime" },
+  { t: "✓ PostgreSQL connection verified", c: "text-c-mint" },
+  { t: "✓ RAG retrieval returns grounded sources", c: "text-c-violet" },
   { t: "$ npm run build", c: "text-paper" },
   { t: "▲ Next.js — creating optimized build", c: "text-fog" },
   { t: "✓ Compiled successfully", c: "text-lime" },
   { t: "✓ Type check passed", c: "text-lime" },
-  { t: "$ node api/server.js", c: "text-paper" },
-  { t: "✓ PostgreSQL pool connected", c: "text-c-mint" },
-  { t: "✓ BullMQ worker: renders", c: "text-c-violet" },
-  { t: "✓ API listening on :4000", c: "text-lime" },
 ];
 
 function Terminal() {
@@ -86,7 +92,10 @@ function RequestHttp() {
   return (
     <Panel title="request.http">
       <div className="flex h-full flex-col gap-3 p-4">
-        <div className="flex items-center justify-between rounded-lg border border-line bg-ink px-3 py-2 font-mono text-xs">
+        <div
+          className="flex items-center justify-between rounded-lg border border-line px-3 py-2 font-mono text-xs"
+          style={{ background: "color-mix(in oklab, var(--color-lime) 7%, var(--color-ink))" }}
+        >
           <span>
             <span className="text-lime">POST</span> <span className="text-paper">/api/chat</span>
           </span>
@@ -100,15 +109,21 @@ function RequestHttp() {
           </button>
         </div>
         <div className="flex items-center gap-2 font-mono text-[10px] text-fog">
-          widget <span className="h-px flex-1 bg-line" /> node.js → rag → gemini
+          widget <span className="h-px flex-1 bg-line" /> Python API → RAG → LLM
         </div>
         <div className="grid flex-1 gap-2 sm:grid-cols-2">
-          <pre className="rounded-lg border border-line bg-ink p-3 font-mono text-[11px] leading-5 text-paper/85">{`{
+          <pre
+            className="rounded-lg border border-line p-3 font-mono text-[11px] leading-5 text-paper/85"
+            style={{ background: "color-mix(in oklab, var(--color-lime) 5%, var(--color-ink))" }}
+          >{`{
   "question": "How do
     refunds work?",
   "site": "acme"
 }`}</pre>
-          <pre className="min-h-[110px] rounded-lg border border-line bg-ink p-3 font-mono text-[11px] leading-5 whitespace-pre-wrap text-c-mint">
+          <pre
+            className="min-h-[110px] rounded-lg border border-line p-3 font-mono text-[11px] leading-5 whitespace-pre-wrap text-c-mint"
+            style={{ background: "color-mix(in oklab, var(--color-lime) 5%, var(--color-ink))" }}
+          >
             {state === "idle" && <span className="text-fog">response</span>}
             {state === "loading" && <span className="pulse-dot text-fog">retrieving context…</span>}
             {state === "done" && shown}
@@ -132,14 +147,15 @@ const files: Record<string, { lang: string; lines: ReactNode[] }> = {
       <>);</>,
     ],
   },
-  "en.json": {
-    lang: "i18n",
+  "api.py": {
+    lang: "Python",
     lines: [
-      <>{"{"}</>,
-      <>  <span className="text-c-blue">&quot;staff.title&quot;</span>: <span className="text-lime">&quot;%org%:middle&quot;</span>,</>,
-      <>  <span className="text-c-blue">&quot;staff.add&quot;</span>: <span className="text-lime">&quot;Add %org%:lower&quot;</span></>,
-      <>{"}"}</>,
-      <><span className="text-fog">{"// school → Teachers · university → Faculties"}</span></>,
+      <><span className="text-c-violet">async def</span> create_assessment(payload):</>,
+      <>  response = <span className="text-c-blue">await</span> client.post(</>,
+      <>    <span className="text-lime">&quot;/assessments&quot;</span>, json=payload</>,
+      <>  )</>,
+      <>  response.raise_for_status()</>,
+      <>  <span className="text-c-violet">return</span> response.json()</>,
     ],
   },
   "Decal.tsx": {
@@ -166,19 +182,26 @@ function Editor() {
             key={n}
             type="button"
             onClick={() => setTab(n)}
-            className={`rounded-t-md px-3 py-1.5 font-mono text-xs transition ${tab === n ? "bg-ink text-paper" : "text-fog hover:text-paper"}`}
+            className={`rounded-t-md px-3 py-1.5 font-mono text-xs transition ${tab === n ? "bg-[var(--color-ink)] text-paper" : "bg-[var(--color-ink-2)] text-fog hover:text-paper"}`}
           >
             {n}
           </button>
         ))}
       </div>
-      <div className="min-h-[200px] bg-ink p-4 font-mono text-[12px] leading-6">
-        {f.lines.map((l, i) => (
-          <div key={tab + i} className="flex gap-4 whitespace-pre">
-            <span className="w-4 text-right text-fog/50 select-none">{i + 1}</span>
-            <span className="text-paper/90">{l}</span>
-          </div>
-        ))}
+      <div
+        className="min-h-[200px] overflow-x-auto"
+        aria-label="Scrollable code editor preview"
+        tabIndex={0}
+        style={{ background: "color-mix(in oklab, var(--color-lime) 6%, var(--color-ink))" }}
+      >
+        <div className="min-w-max p-4 font-mono text-[12px] leading-6">
+          {f.lines.map((l, i) => (
+            <div key={tab + i} className="flex gap-4 whitespace-pre">
+              <span className="w-4 shrink-0 text-right text-fog/50 select-none">{i + 1}</span>
+              <span className="text-paper/90">{l}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </Panel>
   );
@@ -207,7 +230,10 @@ function Psql() {
           <span className="text-c-violet">FROM</span> tenants <span className="text-c-violet">ORDER BY</span> created_at;
         </div>
         <div className="mt-3 overflow-hidden rounded-lg border border-line">
-          <div className="grid grid-cols-3 bg-ink px-3 py-1.5 text-[10px] uppercase tracking-wider text-fog">
+          <div
+            className="grid grid-cols-3 px-3 py-1.5 text-[10px] uppercase tracking-wider text-fog"
+            style={{ background: "color-mix(in oklab, var(--color-lime) 7%, var(--color-ink))" }}
+          >
             <span>subdomain</span>
             <span>org_type</span>
             <span>staff_label</span>

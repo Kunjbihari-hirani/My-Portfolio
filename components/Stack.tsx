@@ -5,13 +5,14 @@ import { useState } from "react";
 import { catColor, catLabel, projects, tools, type Cat, type ProjectId } from "@/data/content";
 import { Accent, Dot, Reveal, Section, SectionHead } from "./ui";
 
-type NodeId = "next" | "r3f" | "api" | "ws" | "queue" | "ai" | "pg" | "mongo";
+type NodeId = "next" | "r3f" | "api" | "node" | "ws" | "queue" | "ai" | "pg" | "mongo";
 
 const nodes: { id: NodeId; label: string; sub: string; x: number; y: number; cat: Cat }[] = [
   { id: "next", label: "Next.js", sub: "UI · SSR", x: 80, y: 95, cat: "ui" },
   { id: "r3f", label: "R3F", sub: "3D scene", x: 80, y: 255, cat: "3d" },
   { id: "ws", label: "Socket.IO", sub: "realtime", x: 300, y: 45, cat: "api" },
-  { id: "api", label: "Node.js", sub: "REST", x: 300, y: 175, cat: "api" },
+  { id: "api", label: "Python APIs", sub: "REST · services", x: 300, y: 155, cat: "api" },
+  { id: "node", label: "Node.js", sub: "Asphalta project", x: 300, y: 240, cat: "api" },
   { id: "queue", label: "BullMQ", sub: "jobs · pub/sub", x: 300, y: 305, cat: "api" },
   { id: "ai", label: "Gemini", sub: "GenAI · RAG", x: 520, y: 305, cat: "ai" },
   { id: "pg", label: "PostgreSQL", sub: "relational", x: 520, y: 115, cat: "data" },
@@ -25,15 +26,17 @@ const edges: [NodeId, NodeId][] = [
   ["api", "pg"],
   ["api", "mongo"],
   ["api", "queue"],
+  ["r3f", "node"],
+  ["node", "queue"],
   ["queue", "ai"],
   ["api", "ai"],
 ];
 
 const projectNodes: Record<ProjectId, NodeId[]> = {
   gograde: ["next", "api", "queue", "ai", "pg"],
-  asphalta: ["next", "r3f", "api", "queue", "ai"],
-  chatbot: ["next", "ws", "api", "ai", "mongo"],
-  cohealth: ["next", "api", "pg"],
+  asphalta: ["next", "r3f", "node", "queue", "ai"],
+  chatbot: ["next", "ws", "ai", "mongo"],
+  cohealth: ["next"],
 };
 
 const cats: Cat[] = ["ui", "api", "data", "3d", "ai"];
@@ -48,7 +51,7 @@ export default function Stack() {
   const toolOn = (name: string) => !project || project.uses.includes(name);
 
   return (
-    <Section id="stack" className="border-y border-line bg-ink-2/40">
+    <Section id="stack">
       <SectionHead
         index="04"
         label="Tech ecosystem"
@@ -82,7 +85,7 @@ export default function Stack() {
 
       <div className="grid gap-5 lg:grid-cols-[1fr_1.15fr]">
         {/* tools by category */}
-        <Reveal>
+        <Reveal className="min-w-0">
           <div className="card flex h-full flex-col gap-5 rounded-3xl border border-line bg-ink-2 p-5 sm:p-6">
             {cats.map((c) => (
               <div key={c}>
@@ -117,14 +120,18 @@ export default function Stack() {
         </Reveal>
 
         {/* architecture graph */}
-        <Reveal delay={0.05}>
-          <div className="card flex h-full flex-col rounded-3xl border border-line bg-ink-2">
+        <Reveal delay={0.05} className="min-w-0">
+          <div className="card flex h-full min-w-0 flex-col rounded-3xl border border-line bg-ink-2">
             <div className="flex items-center justify-between border-b border-line px-5 py-3 font-mono text-xs text-fog">
               <span>architecture.svg</span>
               <span className="text-lime">{project ? project.name : "all products"}</span>
             </div>
-            <div className="dot-bg flex flex-1 items-center p-3 sm:p-5">
-              <div className="relative w-full" style={{ aspectRatio: `${W} / ${H}` }}>
+            <div
+              className="dot-bg flex flex-1 items-center overflow-x-auto p-3 sm:p-5"
+              aria-label="Scrollable technology architecture diagram"
+              tabIndex={0}
+            >
+              <div className="relative min-w-[360px] flex-1" style={{ aspectRatio: `${W} / ${H}` }}>
                 <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 size-full" fill="none" aria-hidden>
                   {edges.map(([a, b]) => {
                     const na = nodes.find((n) => n.id === a)!;

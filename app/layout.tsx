@@ -1,8 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import {
+  Geist_Mono,
+  Instrument_Serif,
+  Space_Grotesk,
+} from "next/font/google";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import "./globals.css";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
 const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono" });
 const serif = Instrument_Serif({
   subsets: ["latin"],
@@ -10,32 +14,32 @@ const serif = Instrument_Serif({
   style: ["normal", "italic"],
   variable: "--font-instrument",
 });
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+});
 
 export const metadata: Metadata = {
-  title: "Kunjbihari Hirani — Full Stack Developer",
+  title: "Kunjbihari Hirani — Full Stack AI Engineer",
   description:
-    "Full Stack Developer in Ahmedabad. React, Next.js, Node.js, PostgreSQL, MongoDB. Building SaaS, AI and 3D products end to end.",
+    "Full Stack AI Engineer in Ahmedabad, focused on React, Next.js, Python APIs, LLM integrations and RAG-powered products.",
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#080b07" },
-    { media: "(prefers-color-scheme: light)", color: "#f6f7f1" },
-  ],
+  themeColor: "#0a0a0a",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${serif.variable}`} suppressHydrationWarning>
-      <head>
-        {/* Set the theme before paint: saved choice, else the system preference. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem("theme")||(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}`,
-          }}
-        />
-      </head>
-      <body className="noise font-sans">{children}</body>
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${geistMono.variable} ${serif.variable} ${spaceGrotesk.variable}`}
+    >
+      <body className="noise font-sans">
+        <SmoothScroll />
+        {children}
+      </body>
     </html>
   );
 }

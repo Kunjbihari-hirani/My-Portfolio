@@ -10,6 +10,8 @@ const extraCat: Record<string, Cat> = {
   TS: "ui",
   Zustand: "ui",
   REST: "api",
+  "Node.js": "api",
+  BullMQ: "api",
   "Pub/Sub": "api",
   R3F: "3d",
   "Next.js API Routes": "api",
